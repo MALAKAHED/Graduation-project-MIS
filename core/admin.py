@@ -18,3 +18,4 @@ class PurchaseOrderAdmin(admin.ModelAdmin):
     list_display = ('order_number', 'requesting_officer', 'supplier', 'status', 'total_amount', 'created_at')
     list_filter = ('status', 'supplier')
     inlines = [OrderItemInline] 
+

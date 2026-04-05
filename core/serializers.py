@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import User, Supplier, Product, PurchaseOrder, OrderItem, Invoice
-
+from django.contrib.auth import get_user_model
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -41,3 +41,23 @@ class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
         fields = ['id', 'order', 'order_number', 'invoice_number', 'issue_date', 'due_date', 'total_amount', 'is_paid']
+
+User = get_user_model()
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'email', 'first_name', 'last_name')
+
+    def create(self, validated_data):
+        
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data.get('email', ''),
+            password=validated_data['password'],
+            first_name=validated_data.get('first_name', ''),
+            last_name=validated_data.get('last_name', '')
+        )
+        return user

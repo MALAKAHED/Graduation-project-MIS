@@ -3,7 +3,9 @@ from rest_framework.permissions import IsAuthenticated, BasePermission
 from .models import User, Supplier, Product, PurchaseOrder, Invoice
 from .serializers import UserSerializer, SupplierSerializer, ProductSerializer, PurchaseOrderSerializer, InvoiceSerializer
 from django.http import HttpResponse
-
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .serializers import RegisterSerializer
 class IsFinanceOrAdmin(BasePermission):
 
     def has_permission(self, request, view):
@@ -59,3 +61,8 @@ def home_view(request):
         <p>Go to <a href='/admin/'>Admin Panel</a> to manage data.</p>
         <p>Go to <a href='/api/'>API Root</a> to see JSON data.</p>
     """)
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,) # مسموح لأي حد (يوزر جديد) يدخل هنا
+    serializer_class = RegisterSerializer

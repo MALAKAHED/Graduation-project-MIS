@@ -25,7 +25,7 @@ class Supplier(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    category = models.CharField(max_length=100) # مثلاً: قرطاسية، أجهزة، إلخ
+    category = models.CharField(max_length=100)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     stock_quantity = models.IntegerField(default=0)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name='products')
