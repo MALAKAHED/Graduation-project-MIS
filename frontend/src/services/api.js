@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
     // تأكد إن ده الـ URL اللي زميلك مشغل عليه السيرفر (غالباً 8000)
-    baseURL: 'http://127.0.0.1:8000/api/' 
+    baseURL: 'http://127.0.0.1:8000/' 
 });
 
 // "الإنترسيبتور": وظيفتة يحط مفتاح الدخول (Token) في رأس كل طلب (Headers)
